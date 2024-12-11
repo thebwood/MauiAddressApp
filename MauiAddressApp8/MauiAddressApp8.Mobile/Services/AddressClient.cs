@@ -1,25 +1,19 @@
-﻿using MauiAddressApp8.Mobile.Services.Interfaces;
+﻿using MauiAddreessApp8.ClassLibrary.Dtos;
 using MauiAddreessApp8.ClassLibrary.Models;
-using MauiAddreessApp8.ClassLibrary.Dtos;
-using Microsoft.Extensions.Configuration;
+using MauiAddressApp8.Mobile.Services.Interfaces;
 using System.Net.Http.Json;
-using System.Text.Json;
 using System.Text;
+using System.Text.Json;
 
 namespace MauiAddressApp8.Mobile.Services
 {
-    public class AddressService : IAddressService
+    public class AddressClient : IAddressClient
     {
         private readonly HttpClient _httpClient;
-        public IConfiguration _configuration { get; }
 
-        public AddressService(HttpClient httpClient, IConfiguration configuration)
+        public AddressClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _configuration = configuration;
-            _httpClient.BaseAddress = new Uri("https://localhost:5001/");
-            _httpClient.DefaultRequestHeaders.Clear();
-            _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
         }
 
         public async Task<GetAddressesResponseDTO> GetAddresses()
@@ -59,5 +53,6 @@ namespace MauiAddressApp8.Mobile.Services
             resultDTO.StatusCode = response.StatusCode;
             return resultDTO;
         }
+
     }
 }

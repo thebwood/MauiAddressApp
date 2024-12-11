@@ -1,6 +1,6 @@
 ﻿namespace MauiAddressApp8.Mobile.ViewModels
 {
-    public class CreateAddressPageViewModel
+    public class AddressDetailPageViewModel : BaseViewModel
     {
     }
 }

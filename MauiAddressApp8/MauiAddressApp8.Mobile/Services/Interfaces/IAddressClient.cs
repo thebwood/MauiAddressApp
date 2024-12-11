@@ -3,7 +3,7 @@ using MauiAddreessApp8.ClassLibrary.Dtos;
 
 namespace MauiAddressApp8.Mobile.Services.Interfaces
 {
-    public interface IAddressService
+    public interface IAddressClient
     {
         Task<GetAddressesResponseDTO> GetAddresses();
         Task<GetAddressResponseDTO> GetAddress(Guid id);

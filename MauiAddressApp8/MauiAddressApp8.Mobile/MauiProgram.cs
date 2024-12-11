@@ -1,7 +1,9 @@
-﻿using MauiAddressApp8.Mobile.Services.Interfaces;
+﻿using MauiAddressApp8.Mobile.Services;
+using MauiAddressApp8.Mobile.Services.Interfaces;
 using Microsoft.Extensions.Logging;
-using Microsoft.Maui.Devices;
-
+using Polly;
+using Polly.Extensions.Http;
+using Microsoft.Extensions.Http;
 namespace MauiAddressApp8.Mobile
 {
     public static class MauiProgram
@@ -25,21 +27,21 @@ namespace MauiAddressApp8.Mobile
             string baseAddress = DeviceInfo.Platform == DevicePlatform.Android
                  ? "https://10.0.2.2:5001" // Android emulator
                  : "https://localhost:5001"; // iOS simulator
+                                             // Define the retry policy
+                                             // Define the retry policy
+            var retryPolicy = HttpPolicyExtensions
+                .HandleTransientHttpError() // Handles 5xx and 408 errors
+                .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(retryAttempt));
 
-            // Register HttpClient with base address
-            builder.Services.AddHttpClient<IAddressService>("AddressClient", client =>
+            // Add HttpClient with retry policy
+            builder.Services.AddHttpClient<IAddressClient, AddressClient>(client =>
             {
                 client.BaseAddress = new Uri(baseAddress);
             })
-            .ConfigurePrimaryHttpMessageHandler(() =>
-            {
-                return new HttpClientHandler
-                {
-                    ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true
-                };
-            });
+            .AddPolicyHandler(retryPolicy); // Attach the retry policy
 
             return builder.Build();
         }
+
     }
 }
