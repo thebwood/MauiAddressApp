@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiAddressApp8.Mobile", "MauiAddressApp8.Mobile\MauiAddressApp8.Mobile.csproj", "{E78E2731-00C5-4DA6-91AC-32E963B48BBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MauiAddreessApp8.ClassLibrary", "MauiAddreessApp8.ClassLibrary\MauiAddreessApp8.ClassLibrary.csproj", "{20C8AB1B-BCFA-4F58-8CDE-C3BB4EC30626}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{E78E2731-00C5-4DA6-91AC-32E963B48BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E78E2731-00C5-4DA6-91AC-32E963B48BBB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E78E2731-00C5-4DA6-91AC-32E963B48BBB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{20C8AB1B-BCFA-4F58-8CDE-C3BB4EC30626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20C8AB1B-BCFA-4F58-8CDE-C3BB4EC30626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20C8AB1B-BCFA-4F58-8CDE-C3BB4EC30626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20C8AB1B-BCFA-4F58-8CDE-C3BB4EC30626}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

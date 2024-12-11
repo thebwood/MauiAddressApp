@@ -64,9 +64,21 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Pages\AddressListPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\MainPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Dtos\" />
+	  <Folder Include="Pages\Controls\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\MauiAddreessApp8.ClassLibrary\MauiAddreessApp8.ClassLibrary.csproj" />
 	</ItemGroup>
 
 </Project>
