@@ -18,10 +18,33 @@ namespace MauiAddressApp8.Mobile.Services
 
         public async Task<GetAddressesResponseDTO> GetAddresses()
         {
-            return await _httpClient.GetFromJsonAsync<GetAddressesResponseDTO>("api/Addresses");
+            GetAddressesResponseDTO responseDto = new();
+            HttpResponseMessage? response = await _httpClient.GetAsync("api/Addresses");
+            response.EnsureSuccessStatusCode();
+
+            if(response != null)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                responseDto = JsonSerializer.Deserialize<GetAddressesResponseDTO>(content);
+            }
+            return responseDto;
         }
 
-        public async Task<GetAddressResponseDTO> GetAddress(Guid id) => await _httpClient.GetFromJsonAsync<GetAddressResponseDTO>($"api/addresses/{id}");
+        public async Task<GetAddressResponseDTO> GetAddress(Guid id)
+        {
+            GetAddressResponseDTO responseDto = new();
+            HttpResponseMessage? response = await _httpClient.GetAsync($"api/addresses/{id}");
+
+            response.EnsureSuccessStatusCode();
+
+            if (response != null)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                responseDto = JsonSerializer.Deserialize<GetAddressResponseDTO>(content);
+            }
+            return responseDto;
+
+        }
 
         public async Task<Result> AddAddress(GetAddressResponseDTO addressDTO)
         {

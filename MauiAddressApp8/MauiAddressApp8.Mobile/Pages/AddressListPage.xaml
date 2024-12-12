@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:MauiAddreessApp8.ClassLibrary.Models;assembly=MauiAddreessApp8.ClassLibrary"
+             xmlns:viewModel="clr-namespace:MauiAddressApp8.Mobile.ViewModels"
              x:Class="MauiAddressApp8.Mobile.Pages.AddressListPage"
+             x:DataType="viewModel:AddressListPageViewModel"
              Title="Addresses">
-    <Grid>
-        <VerticalStackLayout 
-            BindableLayout.ItemsSource="{Binding Projects}" 
-            Margin="{StaticResource LayoutPadding}" 
-            Spacing="{StaticResource LayoutSpacing}">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate x:DataType="models:Project">
-                    <Border>
-                        <VerticalStackLayout Padding="10">
-                            <Label Text="{Binding Name}" FontSize="24" />
-                            <Label Text="{Binding Description}" />
-                        </VerticalStackLayout>
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding NavigateToProjectCommand, Source={RelativeSource AncestorType={x:Type pageModels:ProjectListPageModel}}, x:DataType=pageModels:ProjectListPageModel}" CommandParameter="{Binding .}"/>
-                        </Border.GestureRecognizers>
-                    </Border>
+    <Grid ColumnDefinitions="*"
+          ColumnSpacing="5"
+          RowDefinitions="*, Auto"
+          RowSpacing="0">
+
+        <CollectionView ItemsSource="{Binding Addresses}"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:AddressModel">
+                    <Grid Padding="10" HorizontalOptions="Fill">
+                        <Frame Style="{StaticResource CardView}">
+                            <VerticalStackLayout Padding="10">
+                                <Grid ColumnDefinitions="100, *" RowDefinitions="Auto, Auto, Auto">
+                                    <Label Text="ID:" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" />
+                                    <Label Text="{Binding Id}" FontAttributes="Bold" Grid.Row="0" Grid.Column="1" />
+
+                                    <Label Text="Street Address:" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" />
+                                    <Label Text="{Binding StreetAddress}" Grid.Row="1" Grid.Column="1" />
+
+                                    <Label Text="City, State Zip:" FontAttributes="Bold" Grid.Row="2" Grid.Column="0" />
+                                    <Label Text="{Binding CityStateZip}" Grid.Row="2" Grid.Column="1" />
+                                </Grid>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </Grid>
                 </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </VerticalStackLayout>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
     </Grid>
 </ContentPage>
+    

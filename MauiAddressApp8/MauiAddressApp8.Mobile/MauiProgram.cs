@@ -4,6 +4,9 @@ using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Extensions.Http;
 using Microsoft.Extensions.Http;
+using MauiAddressApp8.Mobile.ViewModels;
+using MauiAddressApp8.Mobile.Pages;
+using CommunityToolkit.Maui;
 namespace MauiAddressApp8.Mobile
 {
     public static class MauiProgram
@@ -13,6 +16,7 @@ namespace MauiAddressApp8.Mobile
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -40,6 +44,19 @@ namespace MauiAddressApp8.Mobile
             })
             .AddPolicyHandler(retryPolicy); // Attach the retry policy
 
+
+            // Register Views (Pages)
+            builder.Services.AddSingleton<AddressDetailPage>();
+            builder.Services.AddSingleton<AddressListPage>();
+            builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<LoginPage>();
+
+            // Register ViewModels
+            builder.Services.AddTransient<AddressDetailPageViewModel>();
+            builder.Services.AddTransient<AddressListPageViewModel>();
+            builder.Services.AddTransient<MainPageViewModel>();
+            builder.Services.AddTransient<LoginPageViewModel>();
+            
             return builder.Build();
         }
 

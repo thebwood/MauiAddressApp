@@ -1,9 +1,15 @@
-﻿namespace MauiAddressApp8.Mobile.ViewModels
+﻿using CommunityToolkit.Mvvm.Input;
+using MauiAddressApp8.Mobile.Pages;
+
+namespace MauiAddressApp8.Mobile.ViewModels
 {
-    public class AppShellViewModel
+    public partial class AppShellViewModel : BaseViewModel
     {
-        public AppShellViewModel()
+        [RelayCommand]
+        private async Task LogoutAsync()
         {
+            Shell.Current.FlyoutIsPresented = false;
+            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
         }
     }
 }

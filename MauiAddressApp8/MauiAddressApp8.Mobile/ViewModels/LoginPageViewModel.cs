@@ -6,7 +6,16 @@ using System.Threading.Tasks;
 
 namespace MauiAddressApp8.Mobile.ViewModels
 {
-    public class LoginPageViewModel :BaseViewModel
+    public partial class LoginPageViewModel :BaseViewModel
     {
+        public LoginPageViewModel()
+        {
+            
+        }
+
+        public async Task LogoutAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
