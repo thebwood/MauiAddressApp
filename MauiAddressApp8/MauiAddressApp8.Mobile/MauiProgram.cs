@@ -29,8 +29,8 @@ namespace MauiAddressApp8.Mobile
 
             // Set base address using platform-specific logic
             string baseAddress = DeviceInfo.Platform == DevicePlatform.Android
-                 ? "https://10.0.2.2:5001" // Android emulator
-                 : "https://localhost:5001"; // iOS simulator
+                 ? "http://10.0.2.2:5025" // Android emulator
+                 : "http://localhost:5025"; // iOS simulator
                                              // Define the retry policy
                                              // Define the retry policy
             var retryPolicy = HttpPolicyExtensions

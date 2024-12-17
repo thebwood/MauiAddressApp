@@ -22,10 +22,13 @@ namespace MauiAddressApp8.Mobile.Services
             HttpResponseMessage? response = await _httpClient.GetAsync("api/Addresses");
             response.EnsureSuccessStatusCode();
 
-            if(response != null)
+            if (response != null)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                responseDto = JsonSerializer.Deserialize<GetAddressesResponseDTO>(content);
+                responseDto = JsonSerializer.Deserialize<GetAddressesResponseDTO>(content, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new();
             }
             return responseDto;
         }
@@ -40,7 +43,10 @@ namespace MauiAddressApp8.Mobile.Services
             if (response != null)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                responseDto = JsonSerializer.Deserialize<GetAddressResponseDTO>(content);
+                responseDto = JsonSerializer.Deserialize<GetAddressResponseDTO>(content, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new();
             }
             return responseDto;
 
