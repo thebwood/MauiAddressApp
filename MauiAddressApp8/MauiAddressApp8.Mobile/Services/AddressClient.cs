@@ -52,29 +52,48 @@ namespace MauiAddressApp8.Mobile.Services
 
         }
 
-        public async Task<Result> AddAddress(GetAddressResponseDTO addressDTO)
+        public async Task<ResultModel> AddAddress(AddressModel address)
         {
-            Result resultDTO = new Result();
-            StringContent? content = new StringContent(JsonSerializer.Serialize(addressDTO), Encoding.UTF8, "application/json");
+            UpdateAddressRequestDTO requestDto = new();
+            requestDto.Address = new AddressDTO
+            {
+                StreetAddress = address.StreetAddress,
+                StreetAddress2 = address.StreetAddress2,
+                City = address.City,
+                State = address.State,
+                PostalCode = address.PostalCode
+            };
+            ResultModel resultDTO = new ResultModel();
+            StringContent? content = new StringContent(JsonSerializer.Serialize(requestDto), Encoding.UTF8, "application/json");
             using HttpResponseMessage? response = await _httpClient.PostAsync("api/addresses", content);
 
             resultDTO.StatusCode = response.StatusCode;
             return resultDTO;
         }
 
-        public async Task<Result> UpdateAddress(GetAddressResponseDTO addressDTO)
+        public async Task<ResultModel> UpdateAddress(AddressModel address)
         {
-            Result resultDTO = new Result();
-            StringContent? content = new StringContent(JsonSerializer.Serialize(addressDTO), Encoding.UTF8, "application/json");
+            UpdateAddressRequestDTO requestDto = new();
+            requestDto.Address = new AddressDTO
+            {
+                Id = address.Id,
+                StreetAddress = address.StreetAddress,
+                StreetAddress2 = address.StreetAddress2,
+                City = address.City,
+                State = address.State,
+                PostalCode = address.PostalCode
+            };
+            ResultModel resultDTO = new ResultModel();
+            StringContent? content = new StringContent(JsonSerializer.Serialize(requestDto), Encoding.UTF8, "application/json");
             //using HttpResponseMessage? response = await _httpClient.PutAsync("api/addresses", content);
             using HttpResponseMessage? response = await _httpClient.PutAsync("api/addresses", content);
             resultDTO.StatusCode = response.StatusCode;
             return resultDTO;
         }
 
-        public async Task<Result> DeleteAddress(Guid id)
+        public async Task<ResultModel> DeleteAddress(Guid id)
         {
-            Result resultDTO = new Result();
+            ResultModel resultDTO = new ResultModel();
 
 
             using HttpResponseMessage? response = await _httpClient.DeleteAsync("api/addresses" + id);

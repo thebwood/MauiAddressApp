@@ -17,6 +17,11 @@
                 <DataTemplate x:DataType="model:AddressModel">
                     <Grid Padding="10" HorizontalOptions="Fill">
                         <Frame Style="{StaticResource CardView}">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:AddressListPageViewModel}}, Path=GoToDetailsCommand}" 
+                                    CommandParameter="{Binding .}" />
+                            </Frame.GestureRecognizers>
                             <VerticalStackLayout Padding="10">
                                 <Grid ColumnDefinitions="100, *" RowDefinitions="Auto, Auto, Auto">
                                     <Label Text="ID:" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" />
@@ -34,7 +39,27 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        
+        <Button Text="+"
+                BackgroundColor="Navy"
+                TextColor="White"
+                FontSize="24"
+                CornerRadius="28"
+                WidthRequest="56"
+                HeightRequest="56"
+                VerticalOptions="End"
+                HorizontalOptions="End"
+                Margin="16"
+                Command="{Binding AddAddressCommand}" />
+
+        <Grid x:Name="Overlay" IsVisible="{Binding IsBusy}" BackgroundColor="#80000000" Opacity="0.9">
+            <ActivityIndicator IsRunning="True" 
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center"
+                               WidthRequest="100"
+                               HeightRequest="100"
+                               Color="Navy"/>
+
+        </Grid>
     </Grid>
 </ContentPage>
     

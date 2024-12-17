@@ -2,11 +2,29 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAddressApp8.Mobile.Pages.AddressDetailPage"
-             Title="AddressDetailPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Detail">
+    <Grid>
+        <StackLayout Padding="10">
+            <Grid ColumnDefinitions="100, *" RowDefinitions="Auto, Auto, Auto, Auto, Auto" RowSpacing="10">
+                <Label Text="Street Address:" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" />
+                <Entry Text="{Binding Address.StreetAddress}" Grid.Row="1" Grid.Column="1" />
+                <Label Text="City:" FontAttributes="Bold" Grid.Row="2" Grid.Column="0" />
+                <Entry Text="{Binding Address.City}" Grid.Row="2" Grid.Column="1" />
+                <Label Text="State:" FontAttributes="Bold" Grid.Row="3" Grid.Column="0" />
+                <Entry Text="{Binding Address.State}" Grid.Row="3" Grid.Column="1" />
+                <Label Text="Zip:" FontAttributes="Bold" Grid.Row="4" Grid.Column="0" />
+                <Entry Text="{Binding Address.Entry}" Grid.Row="4" Grid.Column="1" />
+                <Button Text="Save" Command="{Binding SaveAddressCommand}" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" />
+            </Grid>
+        </StackLayout>
+        <Grid x:Name="Overlay" IsVisible="{Binding IsBusy}" BackgroundColor="#80000000" Opacity="0.9">
+            <ActivityIndicator IsRunning="True" 
+                               VerticalOptions="Center" 
+                               HorizontalOptions="Center"
+                               WidthRequest="100"
+                               HeightRequest="100"
+                               Color="Navy"/>
+
+        </Grid>
+    </Grid>
 </ContentPage>

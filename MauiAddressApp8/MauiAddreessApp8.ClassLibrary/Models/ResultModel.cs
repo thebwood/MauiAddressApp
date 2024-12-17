@@ -2,25 +2,25 @@
 
 namespace MauiAddreessApp8.ClassLibrary.Models
 {
-    public class Result
+    public class ResultModel
     {
         public HttpStatusCode StatusCode { get; set; }
         public bool Success { get; set; }
         public string Message { get; set; }
-        public List<Error> Errors { get; set; }
-        public Result()
+        public List<ErrorModel> Errors { get; set; }
+        public ResultModel()
         {
-            Errors = new List<Error>();
+            Errors = new List<ErrorModel>();
         }
     }
 
-    public class Result<TValue> : Result
+    public class ResultModel<TValue> : ResultModel
     {
         public TValue? Value { get; set; }
 
-        public Result()
+        public ResultModel()
         {
-            Errors = new List<Error>();
+            Errors = new List<ErrorModel>();
         }
     }
 }

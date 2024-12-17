@@ -8,10 +8,10 @@ namespace MauiAddressApp8.Mobile.Services.Interfaces
         Task<GetAddressesResponseDTO> GetAddresses();
         Task<GetAddressResponseDTO> GetAddress(Guid id);
 
-        Task<Result> AddAddress(GetAddressResponseDTO addressDTO);
+        Task<ResultModel> AddAddress(AddressModel address);
 
-        Task<Result> UpdateAddress(GetAddressResponseDTO addressDTO);
-        Task<Result> DeleteAddress(Guid id);
+        Task<ResultModel> UpdateAddress(AddressModel address);
+        Task<ResultModel> DeleteAddress(Guid id);
 
     }
 }
