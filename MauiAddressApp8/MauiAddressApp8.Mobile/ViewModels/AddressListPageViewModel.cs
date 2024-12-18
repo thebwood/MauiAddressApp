@@ -21,25 +21,34 @@ namespace MauiAddressApp8.Mobile.ViewModels
 
         public async Task LoadDataAsync()
         {
-            if (Addresses.Count > 0)
+            IsBusy = true;
+            try
             {
-                Addresses.Clear();
-            }
 
-            var addresses = await _addressClient.GetAddresses();
-
-            foreach (var address in addresses.AddressList)
-            {
-                var addressModel = new AddressModel
+                if (Addresses.Count > 0)
                 {
-                    Id = address.Id.Value,
-                    StreetAddress = address.StreetAddress,
-                    StreetAddress2 = address.StreetAddress2,
-                    City = address.City,
-                    State = address.State,
-                    PostalCode = address.PostalCode
-                };
-                Addresses.Add(addressModel);
+                    Addresses.Clear();
+                }
+
+                var addresses = await _addressClient.GetAddresses();
+
+                foreach (var address in addresses.AddressList)
+                {
+                    var addressModel = new AddressModel
+                    {
+                        Id = address.Id.Value,
+                        StreetAddress = address.StreetAddress,
+                        StreetAddress2 = address.StreetAddress2,
+                        City = address.City,
+                        State = address.State,
+                        PostalCode = address.PostalCode
+                    };
+                    Addresses.Add(addressModel);
+                }
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
         [RelayCommand]

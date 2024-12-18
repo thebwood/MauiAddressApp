@@ -3,7 +3,6 @@ using MauiAddressApp8.Mobile.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Extensions.Http;
-using Microsoft.Extensions.Http;
 using MauiAddressApp8.Mobile.ViewModels;
 using MauiAddressApp8.Mobile.Pages;
 using CommunityToolkit.Maui;
@@ -41,8 +40,8 @@ namespace MauiAddressApp8.Mobile
             builder.Services.AddHttpClient<IAddressClient, AddressClient>(client =>
             {
                 client.BaseAddress = new Uri(baseAddress);
-            });
-
+            })
+                .AddPolicyHandler(retryPolicy); // Attach the retry policy
 
             // Register Views (Pages)
             builder.Services.AddSingleton<AddressCreatePage>();
