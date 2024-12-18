@@ -16,7 +16,6 @@ namespace MauiAddressApp8.Mobile.Services
         {
             _httpClient = httpClient;
         }
-
         public async Task<GetAddressesResponseDTO> GetAddresses()
         {
             GetAddressesResponseDTO responseDto = new();
@@ -27,6 +26,24 @@ namespace MauiAddressApp8.Mobile.Services
             {
                 string content = await response.Content.ReadAsStringAsync();
                 responseDto = JsonSerializer.Deserialize<GetAddressesResponseDTO>(content, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new();
+            }
+            return responseDto;
+        }
+
+        public async Task<GetAddressesResponseDTO> GetAddresses(GetAddressesRequestDTO requestDto)
+        {
+            GetAddressesResponseDTO responseDto = new();
+            StringContent? content = new StringContent(JsonSerializer.Serialize(requestDto), Encoding.UTF8, "application/json");
+            HttpResponseMessage? response = await _httpClient.PostAsync("api/Addresses/filter", content);
+            response.EnsureSuccessStatusCode();
+
+            if (response != null)
+            {
+                string responseContent = await response.Content.ReadAsStringAsync();
+                responseDto = JsonSerializer.Deserialize<GetAddressesResponseDTO>(responseContent, new JsonSerializerOptions
                 {
                     PropertyNameCaseInsensitive = true
                 }) ?? new();

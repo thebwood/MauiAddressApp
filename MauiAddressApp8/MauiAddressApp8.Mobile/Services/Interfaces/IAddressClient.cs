@@ -6,6 +6,7 @@ namespace MauiAddressApp8.Mobile.Services.Interfaces
     public interface IAddressClient
     {
         Task<GetAddressesResponseDTO> GetAddresses();
+        Task<GetAddressesResponseDTO> GetAddresses(GetAddressesRequestDTO request);
         Task<GetAddressResponseDTO> GetAddress(Guid id);
         Task<ResultModel> CreateAddress(AddressModel address);
         Task<ResultModel> UpdateAddress(AddressModel address);
