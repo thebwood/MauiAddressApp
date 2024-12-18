@@ -44,11 +44,11 @@ namespace MauiAddressApp8.Mobile.ViewModels
 
                 result = await _addressClient.UpdateAddress(Address);
 
-                if(result == null || result.StatusCode != HttpStatusCode.OK)
+                if (result == null || !result.Success)
                 {
                     await ShowErrorMessage("Failed to save address.");
                 }
-                else if(result.StatusCode == HttpStatusCode.OK)
+                else if(result.Success)
                 {
                     await ShowSuccessMessage("Address saved successfully.");
                     await Shell.Current.GoToAsync($"//{nameof(AddressListPage)}");
