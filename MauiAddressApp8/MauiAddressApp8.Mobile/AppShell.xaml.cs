@@ -10,6 +10,7 @@ namespace MauiAddressApp8.Mobile
             InitializeComponent();
             BindingContext = new AppShellViewModel();
             Routing.RegisterRoute(nameof(AddressDetailPage), typeof(AddressDetailPage));
+            Routing.RegisterRoute(nameof(AddressCreatePage), typeof(AddressCreatePage));
         }
     }
 }

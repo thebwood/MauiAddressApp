@@ -1,6 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiAddressApp8.ClassLibrary.Dtos;
 using MauiAddressApp8.ClassLibrary.Models;
 using MauiAddressApp8.Mobile.Pages;
 using MauiAddressApp8.Mobile.Services.Interfaces;
@@ -8,29 +7,20 @@ using System.Net;
 
 namespace MauiAddressApp8.Mobile.ViewModels
 {
-    public partial class AddressDetailPageViewModel : BaseViewModel
+    public partial class AddressCreatePageViewModel : BaseViewModel
     {
         private readonly IAddressClient _addressClient;
 
         [ObservableProperty]
         private AddressModel address = new();
 
-        public AddressDetailPageViewModel(IAddressClient addressClient)
+        public AddressCreatePageViewModel(IAddressClient addressClient)
         {
             _addressClient = addressClient;
         }
-
-        public async Task LoadDataAsync(string id)
+        public void LoadData()
         {
-            GetAddressResponseDTO? responseDTO = await _addressClient.GetAddress(Guid.Parse(id));
-            Address = new AddressModel
-            {
-                Id = responseDTO.Address.Id.Value,
-                StreetAddress = responseDTO.Address.StreetAddress,
-                City = responseDTO.Address.City,
-                State = responseDTO.Address.State,
-                PostalCode = responseDTO.Address.PostalCode
-            };
+            Address = new AddressModel();
         }
 
         [RelayCommand]
@@ -42,13 +32,13 @@ namespace MauiAddressApp8.Mobile.ViewModels
 
                 IsBusy = true;
 
-                result = await _addressClient.UpdateAddress(Address);
+                result = await _addressClient.CreateAddress(Address);
 
-                if(result == null || result.StatusCode != HttpStatusCode.OK)
+                if (result == null || result.StatusCode != HttpStatusCode.OK)
                 {
                     await ShowErrorMessage("Failed to save address.");
                 }
-                else if(result.StatusCode == HttpStatusCode.OK)
+                else if (result.StatusCode == HttpStatusCode.OK)
                 {
                     await ShowSuccessMessage("Address saved successfully.");
                     await Shell.Current.GoToAsync($"//{nameof(AddressListPage)}");
@@ -60,5 +50,6 @@ namespace MauiAddressApp8.Mobile.ViewModels
                 IsBusy = false;
             }
         }
+
     }
 }

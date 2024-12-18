@@ -41,17 +41,18 @@ namespace MauiAddressApp8.Mobile
             builder.Services.AddHttpClient<IAddressClient, AddressClient>(client =>
             {
                 client.BaseAddress = new Uri(baseAddress);
-            })
-            .AddPolicyHandler(retryPolicy); // Attach the retry policy
+            });
 
 
             // Register Views (Pages)
+            builder.Services.AddSingleton<AddressCreatePage>();
             builder.Services.AddSingleton<AddressDetailPage>();
             builder.Services.AddSingleton<AddressListPage>();
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<LoginPage>();
 
             // Register ViewModels
+            builder.Services.AddTransient<AddressCreatePageViewModel>();
             builder.Services.AddTransient<AddressDetailPageViewModel>();
             builder.Services.AddTransient<AddressListPageViewModel>();
             builder.Services.AddTransient<MainPageViewModel>();

@@ -1,6 +1,7 @@
-﻿using MauiAddreessApp8.ClassLibrary.Dtos;
-using MauiAddreessApp8.ClassLibrary.Models;
+﻿using MauiAddressApp8.ClassLibrary.Dtos;
+using MauiAddressApp8.ClassLibrary.Models;
 using MauiAddressApp8.Mobile.Services.Interfaces;
+using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
@@ -52,7 +53,7 @@ namespace MauiAddressApp8.Mobile.Services
 
         }
 
-        public async Task<ResultModel> AddAddress(AddressModel address)
+        public async Task<ResultModel> CreateAddress(AddressModel address)
         {
             UpdateAddressRequestDTO requestDto = new();
             requestDto.Address = new AddressDTO
@@ -63,12 +64,24 @@ namespace MauiAddressApp8.Mobile.Services
                 State = address.State,
                 PostalCode = address.PostalCode
             };
-            ResultModel resultDTO = new ResultModel();
+            ResultModel result = new ResultModel();
             StringContent? content = new StringContent(JsonSerializer.Serialize(requestDto), Encoding.UTF8, "application/json");
             using HttpResponseMessage? response = await _httpClient.PostAsync("api/addresses", content);
+            if (response != null)
+            {
+                string responseContent = await response.Content.ReadAsStringAsync();
+                result = JsonSerializer.Deserialize<ResultModel>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new ResultModel();
 
-            resultDTO.StatusCode = response.StatusCode;
-            return resultDTO;
+                return result;
+            }
+            else
+            {
+                result.StatusCode = HttpStatusCode.InternalServerError;
+                return result;
+            }
         }
 
         public async Task<ResultModel> UpdateAddress(AddressModel address)
@@ -83,23 +96,49 @@ namespace MauiAddressApp8.Mobile.Services
                 State = address.State,
                 PostalCode = address.PostalCode
             };
-            ResultModel resultDTO = new ResultModel();
+            ResultModel result = new ResultModel();
             StringContent? content = new StringContent(JsonSerializer.Serialize(requestDto), Encoding.UTF8, "application/json");
-            //using HttpResponseMessage? response = await _httpClient.PutAsync("api/addresses", content);
-            using HttpResponseMessage? response = await _httpClient.PutAsync("api/addresses", content);
-            resultDTO.StatusCode = response.StatusCode;
-            return resultDTO;
+            HttpResponseMessage? response = await _httpClient.PutAsync("api/addresses", content);
+            if (response != null)
+            {
+                string responseContent = await response.Content.ReadAsStringAsync();
+                result = JsonSerializer.Deserialize<ResultModel>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new ResultModel();
+
+                return result;
+            }
+            else
+            {
+                result.StatusCode = HttpStatusCode.InternalServerError;
+                return result;
+            }
         }
+
 
         public async Task<ResultModel> DeleteAddress(Guid id)
         {
-            ResultModel resultDTO = new ResultModel();
+            ResultModel result = new ResultModel();
 
 
             using HttpResponseMessage? response = await _httpClient.DeleteAsync("api/addresses" + id);
 
-            resultDTO.StatusCode = response.StatusCode;
-            return resultDTO;
+            if (response != null)
+            {
+                string responseContent = await response.Content.ReadAsStringAsync();
+                result = JsonSerializer.Deserialize<ResultModel>(responseContent, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }) ?? new ResultModel();
+
+                return result;
+            }
+            else
+            {
+                result.StatusCode = HttpStatusCode.InternalServerError;
+                return result;
+            }
         }
 
     }

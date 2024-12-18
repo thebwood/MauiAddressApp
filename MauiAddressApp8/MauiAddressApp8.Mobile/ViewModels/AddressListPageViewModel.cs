@@ -1,7 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MauiAddreessApp8.ClassLibrary.Models;
+using MauiAddressApp8.ClassLibrary.Models;
 using MauiAddressApp8.Mobile.Pages;
 using MauiAddressApp8.Mobile.Services.Interfaces;
 using System.Collections.ObjectModel;
@@ -43,9 +43,9 @@ namespace MauiAddressApp8.Mobile.ViewModels
             }
         }
         [RelayCommand]
-        public async Task AddAddressAsync()
+        public async Task CreateAddressAsync()
         {
-            await Shell.Current.GoToAsync($"{nameof(AddressDetailPage)}?addressId=new");
+            await Shell.Current.GoToAsync($"{nameof(AddressCreatePage)}");
         }
 
         [RelayCommand]

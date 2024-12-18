@@ -1,5 +1,5 @@
-﻿using MauiAddreessApp8.ClassLibrary.Models;
-using MauiAddreessApp8.ClassLibrary.Dtos;
+﻿using MauiAddressApp8.ClassLibrary.Models;
+using MauiAddressApp8.ClassLibrary.Dtos;
 
 namespace MauiAddressApp8.Mobile.Services.Interfaces
 {
@@ -7,9 +7,7 @@ namespace MauiAddressApp8.Mobile.Services.Interfaces
     {
         Task<GetAddressesResponseDTO> GetAddresses();
         Task<GetAddressResponseDTO> GetAddress(Guid id);
-
-        Task<ResultModel> AddAddress(AddressModel address);
-
+        Task<ResultModel> CreateAddress(AddressModel address);
         Task<ResultModel> UpdateAddress(AddressModel address);
         Task<ResultModel> DeleteAddress(Guid id);
 

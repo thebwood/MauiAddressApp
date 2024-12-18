@@ -1,4 +1,4 @@
-﻿namespace MauiAddreessApp8.ClassLibrary.Models
+﻿namespace MauiAddressApp8.ClassLibrary.Models
 {
     public class AddressModel
     {

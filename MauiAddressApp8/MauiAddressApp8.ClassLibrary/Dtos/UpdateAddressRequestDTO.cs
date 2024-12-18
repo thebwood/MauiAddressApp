@@ -1,4 +1,4 @@
-﻿namespace MauiAddreessApp8.ClassLibrary.Dtos
+﻿namespace MauiAddressApp8.ClassLibrary.Dtos
 {
     public class UpdateAddressRequestDTO
     {
